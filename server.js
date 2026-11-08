@@ -22,6 +22,16 @@ const server = http.createServer((req, res) => {
     });
     return;
   }
+  const MIME = { '.png': 'image/png', '.js': 'text/javascript; charset=utf-8', '.webmanifest': 'application/manifest+json', '.json': 'application/json', '.ico': 'image/x-icon', '.svg': 'image/svg+xml', '.mp3': 'audio/mpeg', '.wav': 'audio/wav', '.ogg': 'audio/ogg' };
+  const fp = path.join(__dirname, 'public', path.normalize(decodeURIComponent(u)).replace(/^(\.\.[\/\\])+/, ''));
+  if (fp.startsWith(path.join(__dirname, 'public') + path.sep) && MIME[path.extname(fp).toLowerCase()]) {
+    fs.readFile(fp, (e, d) => {
+      if (e) { res.writeHead(404); return res.end('404'); }
+      res.writeHead(200, { 'Content-Type': MIME[path.extname(fp).toLowerCase()], 'Cache-Control': 'public, max-age=3600' });
+      res.end(d);
+    });
+    return;
+  }
   res.writeHead(404); res.end('404');
 });
 
