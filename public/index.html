@@ -2393,6 +2393,9 @@ const Net=(()=>{
     if(!S){N.live=false;return}
     if(S.over){flush();N.live=false;return}
     sampleLocal();
+    // Advertise future local inputs even while waiting for remote input.
+    // Otherwise both peers can stop advancing their watermarks permanently.
+    genLocal(tick+D);
     acc=Math.min(acc+dt,.25);
     let steps=0;
     while(acc>=TICK&&steps<8){
