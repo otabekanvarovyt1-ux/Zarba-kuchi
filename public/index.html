@@ -1,4 +1,19 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
 <title>Zarba Kuchi</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Zarba Kuchi">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#140c28">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script src="audio-unlock.js"></script>
+
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Chakra+Petch:wght@500;700&display=swap">
 <style>
@@ -164,6 +179,8 @@ button{font-family:inherit}
 #on-rule{margin:0;font:400 9px var(--font-px);color:var(--hot);flex:1;min-width:200px}
 #s-online .btn{font-size:12px;padding:12px 16px}
 </style>
+</head>
+<body>
 <div id="fit"><div id="frame"><div id="stage">
 <canvas id="cv" width="640" height="360"></canvas>
 
@@ -2907,7 +2924,7 @@ function toast(m){const t=$('toast');t.textContent=m;t.classList.add('on');clear
 document.addEventListener('fullscreenchange',()=>setTimeout(fit,60));
 addEventListener('resize',fit);if(window.visualViewport)visualViewport.addEventListener('resize',fit);
 if(window.ResizeObserver)new ResizeObserver(fit).observe($('fit'));
-['keydown','pointerdown'].forEach(ev=>addEventListener(ev,()=>{Snd.resume();if(screen==='title')updatePadInfo()},{passive:true}));
+['keydown','pointerdown','touchend','click'].forEach(ev=>addEventListener(ev,()=>{Snd.resume();if(screen==='title')updatePadInfo()},{passive:true}));
 /* ---------- til ---------- */
 function relabel(m){m.items.forEach(it=>{const l=it.btn.querySelector('.ml'),s=it.btn.querySelector('.ms');if(l)l.textContent=tr(it.label);if(s)s.textContent=tr(it.sub||'')})}
 function setLang(l){
@@ -2923,3 +2940,5 @@ $('btn-lang').onclick=()=>{Snd.play('confirm');setLang(LANG==='en'?'uz':'en')};
 TouchPad.init();Net.init();setLang(LANG);show('title');
 requestAnimationFrame(frame);
 </script>
+</body>
+</html>
